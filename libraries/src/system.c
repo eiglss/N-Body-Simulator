@@ -127,7 +127,6 @@ void update_body(system_t * this, size_t body)
             g = this->bodies[body].gravity(&(this->bodies[body]), &(this->bodies[i]));
             this->bodies[body].angle(&(this->bodies[body]), &(this->bodies[i]), &d);
             this->bodies[body].accelerate(&(this->bodies[body]), g, &d);
-            this->bodies[body].update_position(&(this->bodies[body]));
         }
     }
 }
@@ -140,6 +139,10 @@ void update_bodies(system_t * this)
     for(i = 0; i < this->n; i++)
     {
         update_body(this, i);
+    }
+    for(i = 0; i < this->n; i++)
+    {
+        this->bodies[i].update_position(&(this->bodies[i]));
     }
 }
 

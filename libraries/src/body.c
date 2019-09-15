@@ -51,22 +51,22 @@ void angle(body_t * b1, body_t * b2, angle_t * d)
 {
     /* local declaration */
     point3_t opposite;
-    double r;
+    double h;
     /* program */
     opposite.x = norm(0, (b1->p.y)-(b2->p.y),( b1->p.z)-(b2->p.z));
     opposite.y = norm((b1->p.x)-(b2->p.x), 0,( b1->p.z)-(b2->p.z));
     opposite.z = norm((b1->p.x)-(b2->p.x), (b1->p.y)-(b2->p.y), 0);
-    r = distance(b1, b2);
-    d->x = asin(opposite.x/r)*sign(b1->p.x);
-    d->y = asin(opposite.y/r)*sign(b1->p.y);
-    d->z = asin(opposite.z/r)*sign(b1->p.z);
+    h = distance(b1, b2);
+    d->x = asin(opposite.x/h)*sign(b1->p.x);
+    d->y = asin(opposite.y/h)*sign(b1->p.y);
+    d->z = asin(opposite.z/h)*sign(b1->p.z);
 }
 
 static void norm2vector(point3_t * v, double norm, angle_t * d)
 {
-    v->x = cos(d->x)*norm;
-    v->y = cos(d->y)*norm;
-    v->z = cos(d->z)*norm;
+    v->x = cos(d->x)*norm*sign(d->x);
+    v->y = cos(d->y)*norm*sign(d->y);
+    v->z = cos(d->z)*norm*sign(d->z);
 }
 
 void accelerate(body_t * this, double f, angle_t * d)
@@ -76,9 +76,9 @@ void accelerate(body_t * this, double f, angle_t * d)
     point3_t vector;
     /* program */
     norm2vector(&vector, acc, d);
-    this->v.x = this->v.x-vector.x*sign(d->x);
-    this->v.y = this->v.y-vector.y*sign(d->y);
-    this->v.z = this->v.z-vector.z*sign(d->z);
+    this->v.x = this->v.x-vector.x;
+    this->v.y = this->v.y-vector.y;
+    this->v.z = this->v.z-vector.z;
 }
 
 void update_position(body_t * this)

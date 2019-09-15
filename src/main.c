@@ -40,24 +40,24 @@ int main(int argc, char const *argv[])
     data = fopen("system.dat", "w");
     /* init earth */
     e_i.bodies[0].p.x = 0;
-    e_i.bodies[0].p.y = -1;
+    e_i.bodies[0].p.y = 0;
     e_i.bodies[0].p.z = 0;
-    e_i.bodies[0].v.x = -0.0001;
+    e_i.bodies[0].v.x = 0;
     e_i.bodies[0].v.y = 0;
     e_i.bodies[0].v.z = 0;
-    e_i.bodies[0].mass = 100;
+    e_i.bodies[0].mass = 1;//5.972e24;
     /* init iss */
-    e_i.bodies[1].p.x = 0.5;
-    e_i.bodies[1].p.y = 0.1;
+    e_i.bodies[1].p.x = 1 ;//6371000+408000;
+    e_i.bodies[1].p.y = 0.5;
     e_i.bodies[1].p.z = 0;
     e_i.bodies[1].v.x = 0;
-    e_i.bodies[1].v.y = 0;
+    e_i.bodies[1].v.y = 0.000001; //-27600./3.6;
     e_i.bodies[1].v.z = 0;
-    e_i.bodies[1].mass = 100;
+    e_i.bodies[1].mass = 1;//420000;
 
-    opts.meas_interval = 60*10;
+    opts.meas_interval = 1*60;
 
-    for(i = 0; i < 50*60*60; i++)
+    for(i = 0; i < 100*60*60; i++)
     {
         update_bodies(&e_i);
         if(i%opts.meas_interval)
